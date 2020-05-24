@@ -1,0 +1,153 @@
+// Card
+.block_wrapper {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+  border: 1px dashed green;
+  padding: 15px;
+  border-radius: 5px;
+
+  &.currentBlock {
+    border: 1px dashed green;
+    padding: 10px;
+    border-radius: 5px;
+
+    input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: right;
+      font-size: 12px;
+    }
+  }
+
+  .Card__title {
+    font-size: 20px;
+    display: flex;
+
+    .switch_to_currentBlock {
+      margin-right: 10px;
+    }
+  }
+
+
+  .Card__show_value {
+    font-size: 25px;
+  }
+}
+
+.exchange_component_title {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 10px;
+  }
+
+  .exchange_component_item {
+    margin-right: 10px;
+  }
+}
+
+.modal-overlay {
+  // background: rgba(0, 0, 0, 0.75);
+  // display: flex;
+  // align-items: flex-start;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+  // z-index: 1000;
+  // padding: 1.2rem;
+}
+
+.modal-wrapper {
+  max-width: 500px;
+  position: relative;
+  padding: 1.2rem;
+  background: #ffffff;
+  background-clip: padding-box;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  // width: fit-content;
+
+  .isClose {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .currencyModal {
+
+    &__search,
+    select {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    &__list {
+      list-style-type: none;
+      margin: 10px;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    &__item {
+      padding: 10px 0;
+      border-bottom: 1px dashed green;
+
+      .emojiFlag {
+        margin: 0 5px -5px 0;
+      }
+
+      .selected_item {
+        color: red;
+      }
+    }
+  }
+
+  .settingModal {
+    display: flex;
+    flex-direction: column;
+
+    #settingModal__source_api {
+      width: 100%;
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      font-size: 16px;
+
+      select:not(:-internal-list-box) {
+        overflow: visible !important;
+      }
+
+      option {
+        font-weight: normal;
+        display: block;
+        white-space: pre;
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+      }
+    }
+
+    .settingModal__item {
+      margin-bottom: 20px;
+    }
+  }
+}
