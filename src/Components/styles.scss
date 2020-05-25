@@ -53,9 +53,23 @@
   }
 }
 
+.currencyModal-wrapper,
+.settingModal-wrapper {
+  display: none;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+
+  &.isShowing {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .modal-overlay {
   background: rgba(0, 0, 0, 0.75);
-  display: none;
+  display: flex;
   align-items: flex-start;
   position: fixed;
   top: 0;
@@ -67,9 +81,6 @@
   z-index: 1000;
   padding: 1.2rem;
 
-  &.isShow {
-    display: block;
-  }
 }
 
 .modal-wrapper {
@@ -139,9 +150,6 @@
   }
 
   .settingModal {
-    display: none;
-    overflow: hidden;
-    flex-direction: column;
 
     #settingModal__source_api {
       width: 100%;

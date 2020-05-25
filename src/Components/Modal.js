@@ -1,23 +1,28 @@
 import React from "react";
 import "./styles.scss";
 import { connect } from "react-redux";
-import { setShowModel } from "../redux/actions";
+import { setShowModelCurrencies, setCloseAllModal } from "../redux/actions";
 const Modal = ({
   classModal,
   titleModal,
   children,
-  isShowing,
-  setShowModel,
+  typeModal,
+  setCloseAllModal,
 }) => {
+  const _handleCloseModal = () => {
+    setCloseAllModal();
+  };
   return (
-    <div className={`modal-overlay ${isShowing ? "isShow" : ""}`}>
-      <div className="modal-wrapper">
-        <div className={`${classModal}`}>
-          <h1>{titleModal}</h1>
-          <span className="isClose" onClick={() => setShowModel()}>
-            x
-          </span>
-          {children}
+    <div className={`${typeModal} `}>
+      <div className="modal-overlay">
+        <div className="modal-wrapper">
+          <div className={`${classModal}`}>
+            <h1>{titleModal}</h1>
+            <span className="isClose" onClick={() => _handleCloseModal()}>
+              x
+            </span>
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -26,11 +31,12 @@ const Modal = ({
 
 const mapStateToProps = (state) => {
   return {
-    isShowing: state.appReducers.isShowing,
+    isCurrencyModelShowing: state.appReducers.isCurrencyModelShowing,
   };
 };
 const mapdispatchToProps = {
-  setShowModel,
+  setShowModelCurrencies,
+  setCloseAllModal,
 };
 
 export default connect(mapStateToProps, mapdispatchToProps)(Modal);

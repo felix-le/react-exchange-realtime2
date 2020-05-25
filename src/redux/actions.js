@@ -10,7 +10,9 @@ import {
   SEARCH_CURRENT_MODAL,
   SWITCH_OBJECT_FROM,
   SET_CURRENT_OBJECT_FROM,
-  TOGGLE_MODEL_BOX,
+  TOGGLE_CURRENT_MODAL,
+  TOGGLE_SETTING_MODAL,
+  CLOSE_ALL_MODAL,
 } from "./types";
 
 export const fetchRateNames = () => async (dispatch) => {
@@ -60,8 +62,19 @@ export const setCurrentObject = (payload) => ({
   payload,
 });
 
-export const setShowModel = (payload) => ({
-  type: TOGGLE_MODEL_BOX,
+export const setShowModelCurrencies = (payload) => ({
+  type: TOGGLE_CURRENT_MODAL,
   payload,
 });
+
+export const setShowSettingModal = (payload) => ({
+  type: TOGGLE_SETTING_MODAL,
+  payload,
+});
+
+export const setCloseAllModal = (payload) => ({
+  type: CLOSE_ALL_MODAL,
+  payload,
+});
+
 // =================================

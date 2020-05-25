@@ -23,9 +23,7 @@ const App = ({ fetchRateNames }) => {
         <From />
         <h2>To: </h2>
         <To />
-        <h2>Currency modal</h2>
         <CurrencyModal />
-        <h2>SettingModal</h2>
         <SettingModal />
       </div>
     </div>

@@ -6,7 +6,9 @@ import {
   SEARCH_CURRENT_MODAL,
   SWITCH_OBJECT_FROM,
   SET_CURRENT_OBJECT_FROM,
-  TOGGLE_MODEL_BOX,
+  TOGGLE_CURRENT_MODAL,
+  TOGGLE_SETTING_MODAL,
+  CLOSE_ALL_MODAL,
 } from "./types";
 const initialState = {
   loading: false,
@@ -23,7 +25,8 @@ const initialState = {
     isFavorite: false,
   },
   currentObjectFrom: {},
-  isShowing: false,
+  isCurrencyModelShowing: false,
+  isSettingModelShowing: false,
 };
 
 const reducers = (state = initialState, action) => {
@@ -115,10 +118,24 @@ const reducers = (state = initialState, action) => {
         currentObjectFrom: action.payload,
       };
     }
-    case TOGGLE_MODEL_BOX: {
+    case TOGGLE_CURRENT_MODAL: {
       return {
         ...state,
-        isShowing: !state.isShowing,
+        isCurrencyModelShowing: !state.isCurrencyModelShowing,
+      };
+    }
+    case TOGGLE_SETTING_MODAL: {
+      return {
+        ...state,
+        isSettingModelShowing: !state.isSettingModelShowing,
+      };
+    }
+
+    case CLOSE_ALL_MODAL: {
+      return {
+        ...state,
+        isSettingModelShowing: false,
+        isCurrencyModelShowing: false,
       };
     }
 

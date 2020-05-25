@@ -54,7 +54,9 @@ const To = ({
           );
         })
       ) : (
-        <p>Nothing to show</p>
+        <p>
+          Please add your favorite country by click on button "Edit currencies"
+        </p>
       )}
     </>
   );

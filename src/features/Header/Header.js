@@ -1,14 +1,18 @@
 import React from "react";
 import { Button } from "../../Components/index";
 import { connect } from "react-redux";
-import { setShowModel } from "../../redux/actions";
+import {
+  setShowModelCurrencies,
+  setShowSettingModal,
+} from "../../redux/actions";
 
-const Header = ({ setShowModel }) => {
+const Header = ({ setShowModelCurrencies, setShowSettingModal }) => {
   const _handleEditCurrencies = () => {
-    setShowModel();
+    setShowModelCurrencies();
   };
   const _handleSettingsAPI = () => {
-    console.log("control API source");
+    // console.log("control API source");
+    setShowSettingModal();
   };
 
   return (
@@ -33,7 +37,8 @@ const Header = ({ setShowModel }) => {
 };
 
 const mapdispatchToProps = {
-  setShowModel,
+  setShowModelCurrencies,
+  setShowSettingModal,
 };
 
 export default connect(null, mapdispatchToProps)(Header);

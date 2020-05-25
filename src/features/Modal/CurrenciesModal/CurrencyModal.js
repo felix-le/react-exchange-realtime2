@@ -9,11 +9,10 @@ const CurrencyModal = ({
   showFullCountryNames,
   toggleFavouriteMonetary,
   modalSearch,
+  isCurrencyModelShowing,
 }) => {
-  // const [searchValue, setSearchValue] = useState("");
   const _handleOnChangeModalSearch = (e) => {
     const { value } = e.target;
-    // setSearchValue(value);
     if (!value) {
       return;
     } else {
@@ -26,7 +25,13 @@ const CurrencyModal = ({
 
   return (
     <>
-      <Modal titleModal="Currency Modal" classModal="currencyModal">
+      <Modal
+        titleModal="Currency Modal"
+        classModal="currencyModal"
+        typeModal={`currencyModal-wrapper ${
+          isCurrencyModelShowing ? "isShowing" : ""
+        }`}
+      >
         <>
           <input
             type="text"
@@ -69,6 +74,7 @@ const mapStateToProps = (state) => {
   return {
     showFullCountryNames: state.appReducers.showFullCountryNames,
     faviousCountries: state.appReducers.faviousCountries,
+    isCurrencyModelShowing: state.appReducers.isCurrencyModelShowing,
   };
 };
 const mapDispatchToProps = {

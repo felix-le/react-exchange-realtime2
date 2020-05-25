@@ -1,8 +1,9 @@
 import React from "react";
 import Modal from "../../../Components/Modal";
 import { Button } from "../../../Components";
+import { connect } from "react-redux";
 
-const SettingModal = () => {
+const SettingModal = ({ isSettingModelShowing }) => {
   const _handleCancel = () => {
     console.log("_handleCancel");
   };
@@ -12,7 +13,13 @@ const SettingModal = () => {
 
   return (
     <>
-      <Modal titleModal="Setting" classModal="settingModal">
+      <Modal
+        titleModal="Setting"
+        classModal="settingModal"
+        typeModal={`settingModal-wrapper  ${
+          isSettingModelShowing ? "isShowing" : ""
+        }`}
+      >
         <>
           <label htmlFor="settingModal__source_api">Source</label>
           <select
@@ -55,4 +62,10 @@ const SettingModal = () => {
   );
 };
 
-export default SettingModal;
+const mapStateToProps = (state) => {
+  return {
+    isSettingModelShowing: state.appReducers.isSettingModelShowing,
+  };
+};
+
+export default connect(mapStateToProps, null)(SettingModal);
