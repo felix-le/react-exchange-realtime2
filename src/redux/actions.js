@@ -4,10 +4,12 @@ import axios from "axios";
 import {
   SET_ORIGINAL_VALUE,
   TOGGLE_FAVOURITE_MONETARY,
-  SET_ORGINAL_FORM,
   FETCH_RATE_NAMES_START,
   FETCH_RATE_NAMES_SUCCESS,
   FETCH_RATE_NAMES_FAIL,
+  SEARCH_CURRENT_MODAL,
+  SWITCH_OBJECT_FROM,
+  SET_CURRENT_OBJECT_FROM,
 } from "./types";
 
 export const fetchRateNames = () => async (dispatch) => {
@@ -21,7 +23,6 @@ export const fetchRateNames = () => async (dispatch) => {
     // call country name
     const res = await axios.get(API_URL.COUNTRY_MONETARY);
     const data = res.data;
-
     dispatch({
       type: FETCH_RATE_NAMES_SUCCESS,
       payload: { rates, data },
@@ -38,31 +39,24 @@ export const setInputValue = (payload) => ({
   payload,
 });
 
-export const toggleFavouriteMonetary = (countryCode, country) => ({
+export const toggleFavouriteMonetary = (payload) => ({
   type: TOGGLE_FAVOURITE_MONETARY,
-  payload: { countryCode, country },
+  payload,
 });
 
-export const setOrginalForm = (
-  seletedOriginalCountry,
-  seletedOriginalcountryCode
-) => ({
-  type: SET_ORGINAL_FORM,
-  payload: { seletedOriginalCountry, seletedOriginalcountryCode },
+export const modalSearch = (payload) => ({
+  type: SEARCH_CURRENT_MODAL,
+  payload,
 });
 
-// const rates = getState().appReducers.allRates;
-// const convert = (baseCurrency, changeCurrency, baseAmount) => {
-//   // All rates are from USD to other currencies
-//   const usdToBase = parseFloat(rates[baseCurrency]); // E.g: USD/EUR = 0.9
-//   const usdToChange = parseFloat(rates[changeCurrency]); // E.g: USD/CNY = 7.1
-//   const baseToChange = usdToChange / usdToBase; // E.g: EUR/CNY = (USD/CNY) / (USD/EUR)
+export const setObjectForm = (payload) => ({
+  type: SWITCH_OBJECT_FROM,
+  payload,
+});
 
-//   const convertedAmount = baseToChange * parseFloat(baseAmount);
+export const setCurrentObject = (payload) => ({
+  type: SET_CURRENT_OBJECT_FROM,
+  payload,
+});
 
-//   if (isNaN(convertedAmount)) return "";
-
-//   return convertedAmount.toLocaleString("fullwide", {
-//     maximumFractionDigits: 2,
-//   });
-// };
+// =================================

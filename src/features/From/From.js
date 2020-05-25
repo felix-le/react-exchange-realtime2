@@ -2,30 +2,29 @@ import React, { useState } from "react";
 // import { Card } from "../../Components/";
 import FlagMonetaryCountryUnit from "../../Components/FlagMonetaryCountryUnit";
 import { connect } from "react-redux";
-import { setInputValue } from "../../redux/actions";
+import {
+  setInputValue,
+  setCurrentObject,
+  setObjectForm,
+} from "../../redux/actions";
 
-const From = ({ setInputValue, formOriginalValue, fullNameCountries }) => {
+const From = ({ setInputValue, changeObjectFrom, setCurrentObject }) => {
   const [showInput, setShowInput] = useState("");
-  const [countryFrom, setCountryForm] = useState({
-    fullCountryName: "USD United States Dollar",
-    countryCode: "USD",
-    baseRate: 1,
-    isFavorite: false,
-  });
 
   const _handleOnChange = (e) => {
     const { value } = e.target;
     setInputValue(value);
     setShowInput(value);
   };
+  setCurrentObject(changeObjectFrom);
 
-  return (
+  return Object.keys(changeObjectFrom).length > 0 ? (
     <div className={`block_wrapper currentBlock`}>
       <div>
         <div className="Card__title">
           <FlagMonetaryCountryUnit
-            titleMonetary={countryFrom.fullCountryName}
-            countryCode={countryFrom.countryCode}
+            titleMonetary={changeObjectFrom.fullCountryName}
+            countryCode={changeObjectFrom.countryCode}
           />
         </div>
         <input
@@ -35,20 +34,22 @@ const From = ({ setInputValue, formOriginalValue, fullNameCountries }) => {
           value={showInput}
         />
         <div className="Card__show_value">
-          {countryFrom.countryCode} {`${showInput}`}
+          {changeObjectFrom.countryCode} {`${showInput}`}
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state) => {
   return {
-    formOriginalValue: state.appReducers.formOriginalValue,
-    fullNameCountries: state.appReducers.fullNameCountries,
+    changeObjectFrom: state.appReducers.changeObjectFrom,
+    currentObjectFrom: state.appReducers.currentObjectFrom,
   };
 };
 const mapDispatchToProps = {
   setInputValue,
+  setCurrentObject,
+  setObjectForm,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(From);

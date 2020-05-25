@@ -110,6 +110,17 @@
       padding: 10px 0;
       border-bottom: 1px dashed green;
 
+      &:hover {
+        background: #f57225;
+      }
+
+      &.favoritedItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0.7;
+      }
+
       .emojiFlag {
         margin: 0 5px -5px 0;
       }
@@ -148,6 +159,8 @@
 
     .settingModal__item {
       margin-bottom: 20px;
+
     }
+
   }
 }

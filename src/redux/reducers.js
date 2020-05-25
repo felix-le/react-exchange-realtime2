@@ -1,29 +1,27 @@
 import {
   SET_ORIGINAL_VALUE,
   TOGGLE_FAVOURITE_MONETARY,
-  SET_ORGINAL_FORM,
   FETCH_RATE_NAMES_START,
   FETCH_RATE_NAMES_SUCCESS,
-  // FETCH_RATE_NAMES_FAIL,
+  SEARCH_CURRENT_MODAL,
+  SWITCH_OBJECT_FROM,
+  SET_CURRENT_OBJECT_FROM,
 } from "./types";
 const initialState = {
   loading: false,
   error: false,
-  countryNames: [],
-  selectedCountryCodes: [],
-  dataMonetary: [],
-  dataRates: {},
-  countryCodeArr: [],
-
-  seletedCountries: [],
-  formOriginalValue: {
-    seletedOriginalCountry: "",
-    seletedOriginalcountryCode: "",
-  },
-  // ------------
-  fullNameCountries: [],
+  showFullCountryNames: [],
+  initialFullCountryNames: [],
   inputOriginalValue: "",
   allRates: "",
+  faviousCountries: [],
+  changeObjectFrom: {
+    fullCountryName: "USD United States Dollar",
+    countryCode: "USD",
+    baseRate: 1,
+    isFavorite: false,
+  },
+  currentObjectFrom: {},
 };
 
 const reducers = (state = initialState, action) => {
@@ -56,7 +54,9 @@ const reducers = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        fullNameCountries: countryObjects,
+        showFullCountryNames: countryObjects,
+        originalCountryNames: countryObjects,
+        initialFullCountryNames: countryObjects,
         allRates: rates,
       };
     }
@@ -65,58 +65,66 @@ const reducers = (state = initialState, action) => {
         ...state,
         inputOriginalValue: action.payload,
       };
-      // =================================================================
     }
-
-    // find all strings in array containing 'thi'
-    // const items = ['item 1', 'thing', 'id-3-text', 'class'];
-    // const matches = items.filter(s => s.includes('thi'));
-
+    // const printOtherCurrencies = displayCurrencies.map((code) => {
+    //   return (
+    //     !selectedCurrencies.includes(code) && (
+    //       <li key={code} onClick={() => this.addRemove(code)}>
+    //         <Currency code={code} />
+    //       </li>
+    //     )
+    //   );
+    // });
     case TOGGLE_FAVOURITE_MONETARY: {
-      const newArrCountryCode = [...state.selectedCountryCodes];
-      const newArrCountries = [...state.seletedCountries];
+      const newArr = state.initialFullCountryNames.map(function (country) {
+        if (country.fullCountryName === action.payload.fullCountryName) {
+          country.isFavorite = !country.isFavorite;
+        }
+        return country;
+      });
 
-      const checkCountryCode = state.selectedCountryCodes.indexOf(
-        action.payload.countryCode
-      );
-      const checkNewArrCountries = state.seletedCountries.indexOf(
-        action.payload.country
-      );
-
-      if (checkCountryCode !== -1) {
-        newArrCountryCode.splice(checkCountryCode, 1);
-      } else {
-        newArrCountryCode.push(action.payload.countryCode);
-      }
-
-      if (checkNewArrCountries !== -1) {
-        newArrCountries.splice(checkCountryCode, 1);
-      } else {
-        newArrCountries.push(action.payload.country);
-      }
+      const faviousArr = newArr.filter((country) => country.isFavorite);
+      const nonFaviousArr = newArr.filter((country) => !country.isFavorite);
 
       return {
         ...state,
-        selectedCountryCodes: [...newArrCountryCode],
-        seletedCountries: [...newArrCountries],
+        faviousCountries: faviousArr,
+        showFullCountryNames: [...faviousArr, ...nonFaviousArr],
       };
     }
-    case SET_ORGINAL_FORM: {
-      const { seletedOriginalCountry } = action.payload;
-      const { seletedOriginalcountryCode } = action.payload;
+    case SEARCH_CURRENT_MODAL: {
       return {
         ...state,
-        formOriginalValue: {
-          seletedOriginalCountry,
-          seletedOriginalcountryCode,
-        },
+        showFullCountryNames: state.initialFullCountryNames.filter(
+          (country) =>
+            country.fullCountryName.toLowerCase().indexOf(action.payload) !== -1
+        ),
       };
     }
 
+    case SWITCH_OBJECT_FROM: {
+      return {
+        ...state,
+        changeObjectFrom: action.payload,
+        faviousCountries: state.faviousCountries.map((country) => {
+          if (country.countryCode === action.payload.countryCode) {
+            return state.changeObjectFrom;
+          }
+          return country;
+        }),
+      };
+    }
+
+    case SET_CURRENT_OBJECT_FROM: {
+      return {
+        ...state,
+        currentObjectFrom: action.payload,
+      };
+    }
+
+    //=================================================================
     default:
       return state;
   }
 };
 export default reducers;
-
-//indexOf + filter

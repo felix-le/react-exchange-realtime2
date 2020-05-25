@@ -1,27 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal } from "../../../Components/";
 import FlagMonetaryCountryUnit from "../../../Components/FlagMonetaryCountryUnit";
 import { connect } from "react-redux";
-import {
-  fetchRates,
-  fetchMonetary,
-  toggleFavouriteMonetary,
-} from "../../../redux/actions";
+import { toggleFavouriteMonetary, modalSearch } from "../../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
 
 const CurrencyModal = ({
-  countryNames,
-  selectedCountryCodes,
+  showFullCountryNames,
   toggleFavouriteMonetary,
+  modalSearch,
 }) => {
   // const [searchValue, setSearchValue] = useState("");
   const _handleOnChangeModalSearch = (e) => {
     const { value } = e.target;
-    console.log("OUTPUT: _handleOnChangeModalSearch -> value", value);
     // setSearchValue(value);
+    if (!value) {
+      return;
+    } else {
+      modalSearch(value.toLowerCase());
+    }
   };
-  const _handleFavouriteMonetary = (countryCode, country) => {
-    toggleFavouriteMonetary(countryCode, country);
+  const _handleFavouriteMonetary = (country) => {
+    toggleFavouriteMonetary(country);
   };
 
   return (
@@ -35,24 +35,21 @@ const CurrencyModal = ({
             onChange={_handleOnChangeModalSearch}
           />
           <ul className="currencyModal__list">
-            {countryNames.length > 0 ? (
-              countryNames.map((country) => {
-                const countryCode = country.split(" ")[0];
+            {showFullCountryNames.length > 0 ? (
+              showFullCountryNames.map((country) => {
                 return (
                   <li
-                    className={`currencyModal__item 
-                        `}
+                    className={`currencyModal__item ${
+                      country.isFavorite ? "favoritedItem" : ""
+                    }`}
                     key={uuidv4()}
-                    onClick={() =>
-                      _handleFavouriteMonetary(countryCode, country)
-                    }
+                    onClick={() => _handleFavouriteMonetary(country)}
                   >
                     <FlagMonetaryCountryUnit
-                      titleMonetary={country}
-                      countryCode={countryCode}
+                      titleMonetary={country.fullCountryName}
+                      countryCode={country.countryCode}
                     />
-                    {/* check ham includes */}
-                    {selectedCountryCodes.indexOf(countryCode) !== -1 && (
+                    {country.isFavorite && (
                       <span className="selected_item">★</span>
                     )}
                   </li>
@@ -67,17 +64,16 @@ const CurrencyModal = ({
     </>
   );
 };
-
+// Tai sao remove faviousCountries lai khong dung duoc?
 const mapStateToProps = (state) => {
   return {
-    selectedCountryCodes: state.appReducers.selectedCountryCodes,
-    countryNames: state.appReducers.countryNames,
+    showFullCountryNames: state.appReducers.showFullCountryNames,
+    faviousCountries: state.appReducers.faviousCountries,
   };
 };
 const mapDispatchToProps = {
-  fetchRates,
-  fetchMonetary,
   toggleFavouriteMonetary,
+  modalSearch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyModal);
