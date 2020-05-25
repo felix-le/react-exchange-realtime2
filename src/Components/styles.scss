@@ -154,7 +154,7 @@
     #settingModal__source_api {
       width: 100%;
       padding: 5px;
-      margin: 5px 0;
+      margin: 5px 0 10px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
       text-align: left;
@@ -173,9 +173,8 @@
       }
     }
 
-    .settingModal__item {
-      margin-bottom: 20px;
-
+    .settingModal__btn__wrapper {
+      margin-top: 30px;
     }
 
   }
