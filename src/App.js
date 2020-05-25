@@ -1,38 +1,30 @@
 import React, { useEffect } from "react";
 import "./app.scss";
 import Header from "./features/Header";
-import CurrentMoney from "./features/CurrentMoney";
-import TargetMoney from "./features/TargetMoney";
-import CurrencyModal from "./features/Modal/CurrenciesModal";
+import From from "./features/From";
+// import To from "./features/To";
+// import CurrencyModal from "./features/Modal/CurrenciesModal";
 // import SettingModal from "./features/Modal/SettingModal";
 import { connect } from "react-redux";
-import { fetchRates, fetchMonetary } from "./redux/actions";
+import { fetchRateNames } from "./redux/actions";
 
-const App = ({ fetchRates, fetchMonetary }) => {
+const App = ({ fetchRates, fetchMonetary, fetchRateNames }) => {
   // const [exchangeValue, setExchangeValue] = useState("");
 
   useEffect(() => {
-    fetchRates();
-    fetchMonetary();
+    fetchRateNames();
   }, []);
-
-  // const countryCodeArr = Object.keys(dataMonetary);
-  // const countryNameArr = [];
-  // countryCodeArr.map((code) =>
-  //   countryNameArr.push(code + " " + dataMonetary[code])
-  // );
-  // setTitleBlock(countryNameArr);
 
   return (
     <div className="app">
       <div className="container">
         <Header />
         <h2>From:</h2>
-        <CurrentMoney />
+        <From />
         <h2>To: </h2>
-        <TargetMoney />
+        {/* <To /> */}
         <h2>Currency modal</h2>
-        <CurrencyModal />
+        {/* <CurrencyModal /> */}
         <h2>SettingModal</h2>
         {/* <SettingModal /> */}
       </div>
@@ -49,8 +41,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  fetchRates,
-  fetchMonetary,
+  fetchRateNames,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

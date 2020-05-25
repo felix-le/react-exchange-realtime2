@@ -1,13 +1,10 @@
 import {
-  FECTH_RATES_START,
-  FETCH_RATES_SUCCESS,
-  // FETCH_RATES_FAILURE,
-  FECTH_MONETARY_START,
-  FETCH_MONETARY_SUCCESS,
-  // FETCH_MONETARY_FAILURE,
   SET_ORIGINAL_VALUE,
   TOGGLE_FAVOURITE_MONETARY,
   SET_ORGINAL_FORM,
+  FETCH_RATE_NAMES_START,
+  FETCH_RATE_NAMES_SUCCESS,
+  // FETCH_RATE_NAMES_FAIL,
 } from "./types";
 const initialState = {
   loading: false,
@@ -17,56 +14,50 @@ const initialState = {
   dataMonetary: [],
   dataRates: {},
   countryCodeArr: [],
-  inputOriginalValue: "",
-  seletedCountries: [],
 
+  seletedCountries: [],
   formOriginalValue: {
     seletedOriginalCountry: "",
     seletedOriginalcountryCode: "",
   },
+  // ------------
+  fullNameCountries: [],
+  inputOriginalValue: "",
+  allRates: "",
 };
 
 const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case FECTH_RATES_START: {
+    case FETCH_RATE_NAMES_START: {
       return {
         ...state,
         loading: true,
       };
     }
 
-    case FETCH_RATES_SUCCESS: {
-      const { rates } = action.payload;
-      const countryCodeArr = Object.keys(rates);
-
+    case FETCH_RATE_NAMES_SUCCESS: {
+      // rates: get rate
+      // data: get country + name + monetary code
+      const { rates, data } = action.payload;
+      // Create object for including all information
+      const countryObjects = [];
+      for (let [key, value] of Object.entries(data)) {
+        const rate = rates[`${key}`];
+        const newObj = {
+          fullCountryName: `${key} ${value}`,
+          countryCode: `${key}`,
+          baseRate: rate,
+          isFavorite: false,
+        };
+        if (newObj.baseRate !== undefined) {
+          countryObjects.push(newObj);
+        }
+      }
       return {
         ...state,
         loading: false,
-        countryCodeArr: countryCodeArr,
-        dataRates: rates,
-      };
-    }
-    case FECTH_MONETARY_START: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-
-    case FETCH_MONETARY_SUCCESS: {
-      const data = action.payload.data;
-
-      const countryNameArr = [];
-
-      state.countryCodeArr.map((code) =>
-        countryNameArr.push(code + " " + data[code])
-      );
-
-      return {
-        ...state,
-        dataMonetary: data,
-        countryNames: countryNameArr,
-        loading: false,
+        fullNameCountries: countryObjects,
+        allRates: rates,
       };
     }
     case SET_ORIGINAL_VALUE: {
@@ -74,6 +65,7 @@ const reducers = (state = initialState, action) => {
         ...state,
         inputOriginalValue: action.payload,
       };
+      // =================================================================
     }
 
     // find all strings in array containing 'thi'
@@ -111,15 +103,7 @@ const reducers = (state = initialState, action) => {
     }
     case SET_ORGINAL_FORM: {
       const { seletedOriginalCountry } = action.payload;
-      console.log(
-        "OUTPUT: reducers -> seletedOriginalCountry",
-        seletedOriginalCountry
-      );
       const { seletedOriginalcountryCode } = action.payload;
-      console.log(
-        "OUTPUT: reducers -> seletedOriginalcountryCode",
-        seletedOriginalcountryCode
-      );
       return {
         ...state,
         formOriginalValue: {

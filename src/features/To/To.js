@@ -6,15 +6,13 @@ import { v4 as uuidv4 } from "uuid";
 
 import { setOrginalForm } from "../../redux/actions";
 
-const TargetMoney = ({
+const To = ({
   dataRates,
   inputOriginalValue,
   seletedCountries,
   setOrginalForm,
 }) => {
   const _handleOnClick = (seletedCountry, countryCode) => {
-    console.log("OUTPUT: _handleOnClick -> countryCode", countryCode);
-    console.log("OUTPUT: _handleOnClick -> seletedCountry", seletedCountry);
     setOrginalForm(seletedCountry, countryCode);
   };
 
@@ -75,4 +73,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   setOrginalForm,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(TargetMoney);
+export default connect(mapStateToProps, mapDispatchToProps)(To);

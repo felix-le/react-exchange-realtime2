@@ -11,3 +11,8 @@ export const SET_ORIGINAL_VALUE = "APP/SET_ORIGINAL_VALUE";
 export const TOGGLE_FAVOURITE_MONETARY = "APP/TOGGLE_FAVOURITE_MONETARY";
 
 export const SET_ORGINAL_FORM = "APP/SET_ORGINAL_FORM";
+
+// =================================================================
+export const FETCH_RATE_NAMES_START = "APP/FETCH_RATE_NAMES_START";
+export const FETCH_RATE_NAMES_SUCCESS = "APP/FETCH_RATE_NAMES_SUCCESS";
+export const FETCH_RATE_NAMES_FAIL = "APP/FETCH_RATE_NAMES_FAIL";
