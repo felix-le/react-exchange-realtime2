@@ -1,10 +1,12 @@
 import React from "react";
 import { Button } from "../../Components/index";
-const Header = (props) => {
-  const _handleSelectCurrencies = () => {
-    console.log("select the current currency");
-  };
+import { connect } from "react-redux";
+import { setShowModel } from "../../redux/actions";
 
+const Header = ({ setShowModel }) => {
+  const _handleEditCurrencies = () => {
+    setShowModel();
+  };
   const _handleSettingsAPI = () => {
     console.log("control API source");
   };
@@ -17,7 +19,7 @@ const Header = (props) => {
           <Button
             btnType="header__edit_cur"
             btnName="Edit Currencies"
-            handleOnClick={_handleSelectCurrencies}
+            handleOnClick={() => _handleEditCurrencies()}
           />
           <Button
             btnType="header__settings"
@@ -30,4 +32,8 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+const mapdispatchToProps = {
+  setShowModel,
+};
+
+export default connect(null, mapdispatchToProps)(Header);

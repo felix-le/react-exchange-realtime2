@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "../../../Components/Modal";
+import Modal from "../../../Components/Modal";
 import { Button } from "../../../Components";
 
 const SettingModal = () => {

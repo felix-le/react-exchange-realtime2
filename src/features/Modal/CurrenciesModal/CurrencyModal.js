@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "../../../Components/";
+import Modal from "../../../Components/";
 import FlagMonetaryCountryUnit from "../../../Components/FlagMonetaryCountryUnit";
 import { connect } from "react-redux";
 import { toggleFavouriteMonetary, modalSearch } from "../../../redux/actions";

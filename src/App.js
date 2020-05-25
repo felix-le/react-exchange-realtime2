@@ -4,7 +4,7 @@ import Header from "./features/Header";
 import From from "./features/From";
 import CurrencyModal from "./features/Modal/CurrenciesModal";
 import To from "./features/To";
-// import SettingModal from "./features/Modal/SettingModal";
+import SettingModal from "./features/Modal/SettingModal";
 import { connect } from "react-redux";
 import { fetchRateNames } from "./redux/actions";
 
@@ -26,7 +26,7 @@ const App = ({ fetchRateNames }) => {
         <h2>Currency modal</h2>
         <CurrencyModal />
         <h2>SettingModal</h2>
-        {/* <SettingModal /> */}
+        <SettingModal />
       </div>
     </div>
   );

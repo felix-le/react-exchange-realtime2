@@ -6,6 +6,7 @@ import {
   SEARCH_CURRENT_MODAL,
   SWITCH_OBJECT_FROM,
   SET_CURRENT_OBJECT_FROM,
+  TOGGLE_MODEL_BOX,
 } from "./types";
 const initialState = {
   loading: false,
@@ -22,6 +23,7 @@ const initialState = {
     isFavorite: false,
   },
   currentObjectFrom: {},
+  isShowing: false,
 };
 
 const reducers = (state = initialState, action) => {
@@ -66,15 +68,7 @@ const reducers = (state = initialState, action) => {
         inputOriginalValue: action.payload,
       };
     }
-    // const printOtherCurrencies = displayCurrencies.map((code) => {
-    //   return (
-    //     !selectedCurrencies.includes(code) && (
-    //       <li key={code} onClick={() => this.addRemove(code)}>
-    //         <Currency code={code} />
-    //       </li>
-    //     )
-    //   );
-    // });
+
     case TOGGLE_FAVOURITE_MONETARY: {
       const newArr = state.initialFullCountryNames.map(function (country) {
         if (country.fullCountryName === action.payload.fullCountryName) {
@@ -119,6 +113,12 @@ const reducers = (state = initialState, action) => {
       return {
         ...state,
         currentObjectFrom: action.payload,
+      };
+    }
+    case TOGGLE_MODEL_BOX: {
+      return {
+        ...state,
+        isShowing: !state.isShowing,
       };
     }
 

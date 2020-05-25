@@ -1,20 +1,36 @@
 import React from "react";
 import "./styles.scss";
-export const Modal = (props) => {
-  const _handleCloseModal = () => {
-    console.log("_handleCloseModal");
-  };
+import { connect } from "react-redux";
+import { setShowModel } from "../redux/actions";
+const Modal = ({
+  classModal,
+  titleModal,
+  children,
+  isShowing,
+  setShowModel,
+}) => {
   return (
-    <div className="modal-overlay">
+    <div className={`modal-overlay ${isShowing ? "isShow" : ""}`}>
       <div className="modal-wrapper">
-        <div className={`${props.classModal}`}>
-          <h1>{props.titleModal}</h1>
-          <span className="isClose" onClick={_handleCloseModal}>
+        <div className={`${classModal}`}>
+          <h1>{titleModal}</h1>
+          <span className="isClose" onClick={() => setShowModel()}>
             x
           </span>
-          {props.children}
+          {children}
         </div>
       </div>
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    isShowing: state.appReducers.isShowing,
+  };
+};
+const mapdispatchToProps = {
+  setShowModel,
+};
+
+export default connect(mapStateToProps, mapdispatchToProps)(Modal);
