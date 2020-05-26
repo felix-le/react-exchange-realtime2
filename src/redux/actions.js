@@ -13,15 +13,17 @@ import {
   TOGGLE_CURRENT_MODAL,
   TOGGLE_SETTING_MODAL,
   CLOSE_ALL_MODAL,
+  SET_API_URL,
 } from "./types";
 
-export const fetchRateNames = () => async (dispatch) => {
+export const fetchRateNames = () => async (dispatch, getState) => {
   dispatch({
     type: FETCH_RATE_NAMES_START,
   });
   try {
+    const apiBase = getState().appReducers.apiRateUrl.url;
     // call rates
-    const resCurr = await axios.get(API_URL.EXCHANGE_RATES);
+    const resCurr = await axios.get(apiBase);
     const rates = resCurr.data.rates;
     // call country name
     const res = await axios.get(API_URL.COUNTRY_MONETARY);
@@ -76,5 +78,12 @@ export const setCloseAllModal = (payload) => ({
   type: CLOSE_ALL_MODAL,
   payload,
 });
+
+export const setApiUrl = (payload) => {
+  return {
+    type: SET_API_URL,
+    payload,
+  };
+};
 
 // =================================

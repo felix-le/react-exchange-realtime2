@@ -150,6 +150,15 @@
   }
 
   .settingModal {
+    .settingModal__item {
+      width: 100%;
+      margin-top: 20px;
+
+      .settingModal__inputKey {
+        padding: 10px;
+        font-size: 12px;
+      }
+    }
 
     #settingModal__source_api {
       width: 100%;

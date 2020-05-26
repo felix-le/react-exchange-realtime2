@@ -9,6 +9,7 @@ import {
   TOGGLE_CURRENT_MODAL,
   TOGGLE_SETTING_MODAL,
   CLOSE_ALL_MODAL,
+  SET_API_URL,
 } from "./types";
 const initialState = {
   loading: false,
@@ -27,6 +28,11 @@ const initialState = {
   currentObjectFrom: {},
   isCurrencyModelShowing: false,
   isSettingModelShowing: false,
+  apiRateUrl: {
+    url: "https://open.exchangerate-api.com/v6/latest",
+    key: false,
+    aboutLink: "https://www.exchangerate-api.com/docs/free-exchange-rate-api",
+  },
 };
 
 const reducers = (state = initialState, action) => {
@@ -138,7 +144,12 @@ const reducers = (state = initialState, action) => {
         isCurrencyModelShowing: false,
       };
     }
-
+    case SET_API_URL: {
+      return {
+        ...state,
+        apiRateUrl: action.payload,
+      };
+    }
     //=================================================================
     default:
       return state;

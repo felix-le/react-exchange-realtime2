@@ -7,6 +7,7 @@ import To from "./features/To";
 import SettingModal from "./features/Modal/SettingModal";
 import { connect } from "react-redux";
 import { fetchRateNames } from "./redux/actions";
+import { API_URL } from "./server";
 
 const App = ({ fetchRateNames }) => {
   // const [exchangeValue, setExchangeValue] = useState("");
