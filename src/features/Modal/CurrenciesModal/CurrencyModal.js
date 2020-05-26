@@ -13,11 +13,7 @@ const CurrencyModal = ({
 }) => {
   const _handleOnChangeModalSearch = (e) => {
     const { value } = e.target;
-    if (!value) {
-      return;
-    } else {
-      modalSearch(value.toLowerCase());
-    }
+    modalSearch(value.toLowerCase() || "");
   };
   const _handleFavouriteMonetary = (country) => {
     toggleFavouriteMonetary(country);

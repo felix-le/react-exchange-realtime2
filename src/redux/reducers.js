@@ -96,12 +96,19 @@ const reducers = (state = initialState, action) => {
       };
     }
     case SEARCH_CURRENT_MODAL: {
+      const faviousArr = state.initialFullCountryNames.filter(
+        (country) => country.isFavorite
+      );
+      const nonFaviousArr = state.initialFullCountryNames.filter(
+        (country) => !country.isFavorite
+      );
+      const showFullCountryNames = [...faviousArr, ...nonFaviousArr].filter(
+        (country) =>
+          country.fullCountryName.toLowerCase().indexOf(action.payload) !== -1
+      );
       return {
         ...state,
-        showFullCountryNames: state.initialFullCountryNames.filter(
-          (country) =>
-            country.fullCountryName.toLowerCase().indexOf(action.payload) !== -1
-        ),
+        showFullCountryNames: showFullCountryNames,
       };
     }
 
