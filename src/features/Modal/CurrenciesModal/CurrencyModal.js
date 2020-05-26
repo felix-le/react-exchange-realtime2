@@ -2,7 +2,11 @@ import React from "react";
 import Modal from "../../../Components/";
 import FlagMonetaryCountryUnit from "../../../Components/FlagMonetaryCountryUnit";
 import { connect } from "react-redux";
-import { toggleFavouriteMonetary, modalSearch } from "../../../redux/actions";
+import {
+  toggleFavouriteMonetary,
+  modalSearch,
+  setCloseAllModal,
+} from "../../../redux/actions";
 import { v4 as uuidv4 } from "uuid";
 
 const CurrencyModal = ({
@@ -10,6 +14,7 @@ const CurrencyModal = ({
   toggleFavouriteMonetary,
   modalSearch,
   isCurrencyModelShowing,
+  setCloseAllModal,
 }) => {
   const _handleOnChangeModalSearch = (e) => {
     const { value } = e.target;
@@ -27,6 +32,7 @@ const CurrencyModal = ({
         typeModal={`currencyModal-wrapper ${
           isCurrencyModelShowing ? "isShowing" : ""
         }`}
+        handleCloseModal={() => setCloseAllModal()}
       >
         <>
           <input
@@ -76,6 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   toggleFavouriteMonetary,
   modalSearch,
+  setCloseAllModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyModal);

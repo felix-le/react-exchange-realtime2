@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Modal from "../../../Components/Modal";
 import { Button } from "../../../Components";
 import { connect } from "react-redux";
-import { setApiUrl } from "../../../redux/actions";
+import { setApiUrl, setCloseAllModal } from "../../../redux/actions";
 
-const SettingModal = ({ isSettingModelShowing, setApiUrl, apiRateUrl }) => {
+const SettingModal = ({
+  isSettingModelShowing,
+  setApiUrl,
+  setCloseAllModal,
+}) => {
   const [url, setUrl] = useState("");
   const exchangeRateApi = {
     url: "https://open.exchangerate-api.com/v6/latest",
@@ -22,9 +26,6 @@ const SettingModal = ({ isSettingModelShowing, setApiUrl, apiRateUrl }) => {
     aboutLink: "https://docs.openexchangerates.org/",
   };
 
-  const _handleCancel = () => {
-    console.log("_handleCancel");
-  };
   const _handleKeyInput = (e) => {
     const { value } = e.target;
     console.log("OUTPUT: _handleKeyInput -> value", value);
@@ -52,6 +53,7 @@ const SettingModal = ({ isSettingModelShowing, setApiUrl, apiRateUrl }) => {
         typeModal={`settingModal-wrapper  ${
           isSettingModelShowing ? "isShowing" : ""
         }`}
+        handleCloseModal={() => setCloseAllModal()}
       >
         <>
           <label htmlFor="settingModal__source_api">Source</label>
@@ -93,7 +95,7 @@ const SettingModal = ({ isSettingModelShowing, setApiUrl, apiRateUrl }) => {
           <div className="settingModal__btn__wrapper">
             <Button
               btnType="btn settingModal__btn"
-              handleOnClick={_handleCancel}
+              handleOnClick={() => setCloseAllModal()}
               btnName="Cancel"
             />{" "}
             |
@@ -118,6 +120,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setApiUrl,
+  setCloseAllModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingModal);
